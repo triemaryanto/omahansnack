@@ -18,10 +18,10 @@ class UserSeeder extends Seeder
             'name'      => 'Tri Maryanto',
             'email'     => 'admin@app.com',
             'password'  => Hash::make('password'),
-            'address'     => 'Jl. Belajar no 717',
-            'houseNumber'     => 'Rumah No. 17',
-            'phoneNumber'     => '081515815175',
-            'city'     => 'Demak',
+            'address'     => 'Tawang Sari 01/04 Tawangsari Indah Wonosobo Jateng',
+            'houseNumber'     => 'No. i.7',
+            'phoneNumber'     => '085157392291',
+            'city'     => 'Wonosobo',
             'roles'     => 'ADMIN',
         ]);
     }
