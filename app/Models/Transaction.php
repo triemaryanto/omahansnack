@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Spatie\Permission\Traits\HasRoles;
 
 class Transaction extends Model
 {
-    use HasFactory;
+    use HasFactory, HasRoles;
 
     protected $fillable = [
         'product_id',

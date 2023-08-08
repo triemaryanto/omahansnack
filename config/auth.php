@@ -43,8 +43,7 @@ return [
         'api' => [
             'driver' => 'jwt',
             // <-- set ke "jwt"
-            'provider' => 'users',
-            'hash' => false,
+            'provider' => 'users'
         ],
     ],
 
@@ -69,6 +68,7 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+
         ],
     ],
 

@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert([
+        User::create([
             'name'      => 'Tri Maryanto',
             'email'     => 'admin@app.com',
             'password'  => Hash::make('password'),
@@ -23,6 +24,16 @@ class UserSeeder extends Seeder
             'phoneNumber'     => '085157392291',
             'city'     => 'Wonosobo',
             'roles'     => 'ADMIN',
-        ]);
+        ])->assignRole('admin')->givePermissionTo(['home','dashboard','master']);
+        User::create([
+            'name'      => 'Hilkia Yunika',
+            'email'     => 'user@app.com',
+            'password'  => Hash::make('password'),
+            'address'     => 'Tawang Sari 01/04 Tawangsari Indah Wonosobo Jateng',
+            'houseNumber'     => 'No. i.7',
+            'phoneNumber'     => '085157392291',
+            'city'     => 'Wonosobo',
+            'roles'     => 'ADMIN',
+        ])->assignRole('user')->givePermissionTo(['home','dashboard']);
     }
 }

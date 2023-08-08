@@ -2,11 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\Mobile\UserController as MobileUserController;
-use App\Http\Controllers\Api\Mobile\CategoryController as MobileCategoryController;
-use App\Http\Controllers\Api\Mobile\PostController as MobilePostController;
-use App\Http\Controllers\Api\Mobile\ProductController as MobileProductController;
-use App\Http\Controllers\Api\Mobile\CommentController as MobileCommentController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\Api\Dashboard\PostController;
 use App\Http\Controllers\Api\Dashboard\UserController;
 use App\Http\Controllers\Api\Dashboard\LoginController;
@@ -16,6 +12,11 @@ use App\Http\Controllers\Api\Dashboard\CategoryController;
 use App\Http\Controllers\Api\Dashboard\MidtransController;
 use App\Http\Controllers\Api\Dashboard\DashboardController;
 use App\Http\Controllers\Api\Dashboard\TransactionController;
+use App\Http\Controllers\Api\Mobile\PostController as MobilePostController;
+use App\Http\Controllers\Api\Mobile\UserController as MobileUserController;
+use App\Http\Controllers\Api\Mobile\CommentController as MobileCommentController;
+use App\Http\Controllers\Api\Mobile\ProductController as MobileProductController;
+use App\Http\Controllers\Api\Mobile\CategoryController as MobileCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('/login', [LoginController::class, 'index']);
 Route::post('/payment-notif', [MidtransController::class, 'callback']);
-Route::prefix('dashboard')->middleware(['auth:api', 'admin'])->group(function () {
+Route::prefix('dashboard')->middleware(['auth:api'])->group(function () {
+    Route::get('/check-permissions', [PermissionController::class, 'checkPermissions']);
     Route::get('/user', [LoginController::class, 'getUser']);
     Route::get('/refresh', [LoginController::class, 'refreshToken']);
     Route::post('/logout', [LoginController::class, 'logout']);
@@ -49,7 +51,7 @@ Route::prefix('dashboard')->middleware(['auth:api', 'admin'])->group(function ()
 });
 
 Route::post('/register', [MobileUserController::class, 'store']);
-Route::prefix('mobile')->middleware(['auth:api', 'user'])->group(function () {
+Route::prefix('mobile')->middleware(['auth:api'])->group(function () {
     Route::get('/user', [MobileUserController::class, 'getUser']);
     Route::get('/user/{id}', [MobileUserController::class, 'show']);
     Route::post('/checkout', [MobileUserController::class, 'checkout']);
