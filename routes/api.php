@@ -45,7 +45,9 @@ Route::prefix('dashboard')->middleware(['auth:api'])->group(function () {
     Route::apiResource('/categories', CategoryController::class);
     Route::apiResource('/products', ProductController::class);
     Route::apiResource('/posts', PostController::class);
-    Route::apiResource('/transactions', TransactionController::class);
+    Route::middleware(['can:master'])->group(function () {
+        Route::apiResource('/transactions', TransactionController::class);
+    });
     Route::apiResource('/users', UserController::class);
     Route::apiResource('/comments', CommentController::class);
 });
